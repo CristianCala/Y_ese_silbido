@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 		<title>Y Ese Silbido?</title>
 		<!-- Bootstrap 5  CSS-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -11,16 +12,18 @@
 		<!-- Fontawesome -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 		<!-- Google fonts -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bellota" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
 		<!-- Estilos Propios -->
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark shadow-lg hover-relleno">
 			<div class="container-fluid">
-				<a class="navbar-brand h5 ms-4" href="#">Logo</a>
+				<a class="navbar-brand h5 ms-4" href="#">
+					<img src="img/favicon.png" width="50" height="50" alt="Logo del silbón">
+				</a>
 				<button
-				class="navbar-toggler fa-2x"
+				class="navbar-toggler "
 				type="button"
 				data-mdb-toggle="collapse"
 				data-mdb-target="#navbarNav"
@@ -28,24 +31,104 @@
 				aria-expanded="false"
 				aria-label="Toggle navigation"
 				>
-				<i class="fas fa-bars"></i>
+				<i class="fas fa-bars fa-2x"></i>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a class="nav-link h5" href="#">Proyecto</a>
+							<a class="nav-link" href="#">Proyecto</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link h5" href="#">Juego</a>
+							<a class="nav-link" href="#">Juego</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link h5" href="#">Nosotros</a>
+							<a class="nav-link" href="#">Nosotros</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-
+		<header  class="vh-100  align-items-center">
+			<div class="p-5 d-flex">
+				<hgroup class="mt-5 text-white">
+<!-- 				<h1 class="fw-light display-4 mt-5">¿Y ESE</h1>
+				<h2 class="mt-5 display-2">SILBIDO?</h2> -->
+				<img src="img/LogoNegro.png" width="500" height="300" alt="Logo ¿Y ese Silbido? en negro">
+				<h3 class="fw-light mt-5 h5 line">De la tradición oral de los llanos <br> venezolanos sobre "El Silbón"</h3>
+				</hgroup>
+			</div>
+			<div class="text-center mt-5 round">
+				<a href="#proyecto" class="mt-5">
+					<i class="fas fa-chevron-down fa-2x text-dark icon arrow primera next" ></i>
+				</a>
+			</div>
+		</header>
+		<main>
+			<section class="p-5" id="proyecto">
+				<h1 class="fw-bold">Y Ese Silbido</h1>
+				<h2 class="mt-4 h4">La Escencia del juego</h2>
+				<p class="mt-5 fw-light font-paragrapf h4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis molestiae, blanditiis quo maiores doloremque officiis animi sapiente illum voluptate necessitatibus quam expedita inventore. Nemo distinctio perspiciatis modi dolorem ab dicta.</p>
+			</section>
+			<section class="p-5 bg-dark-main" id="juego">
+				<h1>JUEGALO YA!</h1>
+				<div class="container p-5 bg-light mt-5 rounded">
+					
+				</div>
+			</section>
+			<section class="p-5">
+				<h1>INSTRUCTIVO</h1>
+				<h2 class="mt-4 h4">¿CÓMO JUGAR? </h2>
+				<div class="text-center">
+					<img src="" alt="Aquí va la imágen">
+				</div>
+			</section>
+		</main>
+		<footer class="p-5 text-white">
+			<h1 >CONTACTANOS</h1>
+			<h2 class="mt-4 h4">Visita nuestras redes sociales</h2>
+			<div class= "mt-5">
+				<section class="mb-4">
+					<!-- Facebook -->
+					<a
+						class="btn btn-primary btn-floating m-1"
+						style="background-color: #3b5998;"
+						href="#!"
+						role="button"
+						><i class="fab fa-facebook-f fa-2x mt-1 "></i
+					></a>
+					<!-- Twitter -->
+					<a
+						class="btn btn-primary btn-floating m-1"
+						style="background-color: #55acee;"
+						href="#!"
+						role="button"
+						><i class="fab fa-twitter fa-2x mt-1 "></i
+					></a>
+					<!-- Instagram -->
+					<a
+						class="btn btn-primary btn-floating m-1"
+						style="background-color: #ac2bac;"
+						href="#!"
+						role="button"
+						><i class="fab fa-instagram fa-2x mt-1"></i
+					></a>
+					<!-- WhatsApp -->
+					<a
+						class="btn btn-primary btn-floating m-1"
+						style="background-color: #69F054;"
+						href="#!"
+						role="button"
+						><i class="fab fa-whatsapp fa-2x mt-1"></i
+					></a>
+				</section>
+				<!-- Section: Social media -->
+			</div>
+			<div class="text-center">
+				<p>
+					Diseñado con <i class="fas fa-heart text-danger"></i> por Cristian Cala
+				</p>
+			</div>
+		</footer>
 		
 		<!-- Bootstrap 5 Js -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

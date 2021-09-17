@@ -9,17 +9,55 @@
  /*Paleta de colores*/
 :root {
 	--dark-color: #262E31;
-	--main-color: #4F8BA7;
+	--main-color: #92AFBF;
 	--terciary-color: #BBF6FF; /*10*/
 }
 
+@font-face {
+  font-family: CheapPotatoes;
+  src: url('../CheapPotatoesBlack.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: CheapPotatoesThin;
+  src: url('../CheapPotatoesThin.ttf')format('truetype');
+}
 
 body{
-	font-family: 'Bellota'  !important;
+	font-family: 'CheapPotatoesThin'  !important;
 }
 
 nav{
 	background-color: var(--dark-color);
+}
+
+header {
+  background-color: var(--main-color);
+  font-family: 'CheapPotatoes' !important;
+}
+
+section{
+    line-height: 2.5rem;
+}
+
+footer{
+  background-color: var(--dark-color);
+}
+
+.icon:hover{
+  color: white !important;
+}
+
+.font-paragrapf{
+  font-family: 'Lato' !important;
+}
+
+.bg-dark-main{
+  background-color: var(--main-color);
+}
+
+.line{
+  line-height: 4rem;
 }
 
 nav ul li a,
@@ -27,7 +65,7 @@ nav ul li a:after,
 nav ul li a:before {
   transition: all .5s;
 }
-/* SHIFT */
+
 nav.hover-relleno ul li a {
   position:relative;
   z-index: 1;
@@ -56,4 +94,44 @@ nav.hover-relleno ul li a:hover:after {
   opacity: 1;
   visibility: visible;
   height: 100%;
+}
+
+@keyframes bounceAlpha {
+  0% {opacity: 1; transform: translateY(0px) scale(1);}
+  25%{opacity: 0; transform:translateY(10px) scale(0.9);}
+  26%{opacity: 0; transform:translateY(-10px) scale(0.9);}
+  55% {opacity: 1; transform: translateY(0px) scale(1);}
+}
+
+.bounceAlpha {
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+
+.arrow.primera.bounceAlpha {
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-delay:0.2s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+
+.round:hover .arrow{
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+.round:hover .arrow.primera{
+    animation-name: bounceAlpha;
+    animation-duration:1.4s;
+    animation-delay:0.2s;
+    animation-iteration-count:infinite;
+}
+
+.btn-floating{
+  width: 3rem !important;
+  height: 3rem !important;
 }
