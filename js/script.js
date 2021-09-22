@@ -1,30 +1,30 @@
 var DEFAULT_GAME_FILENAME = 'js/game.zip';
  
  // Subtly hint at lack of WebAssembly support (if applicable)
-// if (typeof WebAssembly !== 'object') {
+if (typeof WebAssembly !== 'object') {
 
-//     var error_message = "Unsupported browser - please upgrade!\n(WebAssembly support needed)";
-//     document.body = document.createElement('body');
-//     document.body.innerHTML = error_message.replace('\n', '<br />');
-//     location.href = 'javascript:alert("' + error_message.replace('\n', '\\n') + '")';
-//     throw error_message;
-//     window.stop();
+    var error_message = "Unsupported browser - please upgrade!\n(WebAssembly support needed)";
+    document.body = document.createElement('body');
+    document.body.innerHTML = error_message.replace('\n', '<br />');
+    location.href = 'javascript:alert("' + error_message.replace('\n', '\\n') + '")';
+    throw error_message;
+    window.stop();
     // R.I.P.
-// }
+}
 
 // Clear error when running without server
-// if (location.href.startsWith('file://')) {
-//     alert("Error: El navegador requiere que el juego corra desde un servidor local HTTP(i.e. double-clicking on index.html won't work).");
-// }
+if (location.href.startsWith('file://')) {
+    alert("Error: El navegador requiere que el juego corra desde un servidor local HTTP(i.e. double-clicking on index.html won't work).");
+}
 
 // Work-around iframe focus
-// https://github.com/emscripten-core/emscripten/pull/7631
-// document.getElementById('canvas').addEventListener('mouseenter', function(e) {
-//   window.focus() 
-// });
-// document.getElementById('canvas').addEventListener('click', function(e) {
-//   window.focus() 
-// });
+https://github.com/emscripten-core/emscripten/pull/7631
+document.getElementById('canvas').addEventListener('mouseenter', function(e) {
+  window.focus() 
+});
+document.getElementById('canvas').addEventListener('click', function(e) {
+  window.focus() 
+});
 
       /* Copyright (C) 2018, 2019, 2020, 2021  Sylvain Beucler */
 
@@ -168,7 +168,7 @@ var DEFAULT_GAME_FILENAME = 'js/game.zip';
             var print_date = new Date();
             statusbar.date = print_date;
             window.setTimeout(function() {
-              // Esconde el loader después de unos segondos - solo si setStatus no está activo
+              // Esconde el loader después de unos segundos - solo si setStatus no está activo
               if (Module.setStatus.last && Module.setStatus.last.text == ''
                   && statusbar.date == print_date) {
                 element.innerHTML = ''; statusbar.hidden = true;

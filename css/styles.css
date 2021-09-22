@@ -35,7 +35,7 @@ nav{
 
 header {
   background-color: var(--main-color);
-  background: url(../img/header.png) no-repeat fixed;
+  background: url(../img/header.png) no-repeat;
 
   font-family: 'CheapPotatoes' !important;
 

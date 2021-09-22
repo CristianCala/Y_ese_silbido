@@ -45,7 +45,7 @@
 		<nav class="navbar navbar-expand-lg navbar-dark shadow-lg hover-relleno">
 			<div class="container-fluid">
 				<a class="navbar-brand h5 ms-4" href="#">
-					<img src="img/favicon.svg" width="50" height="50" alt="Logo del silbón">
+					<img src="img/faviconWh.png" width="50" height="50" alt="Logo del silbón">
 				</a>
 				<button
 				class="navbar-toggler "
@@ -102,7 +102,6 @@
 					<h1>JUEGALO YA!</h1>
 					<div class="container mt-5">
 						<!-- Lienzo canvas -->
-						<div>
 	<!-- 						<div id="statusbar_container" class="position-absolute">
 								<div id="statusbar">
 									<div class="spinner-border text-primary spinner-pos" role="status" id="spinner"></div>
@@ -115,31 +114,30 @@
 									</div>
 								</div>
 							</div> -->
-							<div class="text-center">
-								<div id="statusbar_container">
-									<div class="container" id="statusbar">
-										<div class="spinner-border text-white spinner-pos" role="status" id="spinner"></div>
-										<div class="emscripten fw-light text-white" id="status">Descargando...</div>
-										<progress value="0" max="100" id="progress" style="width: 18rem;" hidden></progress>
-									</div>
+						<div class="text-center">
+							<div id="statusbar_container">
+								<div class="container" id="statusbar">
+									<div class="spinner-border text-white spinner-pos" role="status" id="spinner"></div>
+									<div class="emscripten fw-light text-white" id="status">Descargando...</div>
+									<progress value="0" max="100" id="progress" style="width: 18rem;" hidden></progress>
 								</div>
 							</div>
-							<canvas class="emscripten shadow-lg" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1>
-							</canvas>
-							<div class="position-absolute" id="ContextContainer" style="display: none;">
-								<i class="fas fa-bars fa-2x text-white" id="ContextButton"></i><br/>
-								<div id="ContextMenu" style="display: none;">
-									<input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip" style=display:none>
-									<a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import saves</a><br/>
-									<a href="javascript:onSavegamesExport();">Export saves</a><br />
-									<a href="javascript:FSDownload('/log.txt', 'text/plain');">Ren'Py log</a><br/>
-									<a href="https://renpy.beuc.net/" target="_blank">
-										<span style="font-size: smaller">
-											<span style="color: dimgrey">Powered by</span>
+						</div>
+						<canvas class="emscripten shadow-lg" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1>
+						</canvas>
+						<div class="position-absolute" id="ContextContainer" style="display: none;">
+							<i class="fas fa-bars fa-2x text-white" id="ContextButton"></i><br/>
+							<div id="ContextMenu" style="display: none;">
+								<input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip" style=display:none>
+								<a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import saves</a><br/>
+								<a href="javascript:onSavegamesExport();">Export saves</a><br />
+								<a href="javascript:FSDownload('/log.txt', 'text/plain');">Ren'Py log</a><br/>
+								<a href="https://renpy.beuc.net/" target="_blank">
+									<span style="font-size: smaller">
+										<span style="color: dimgrey">Powered by</span>
 											RenPyWeb
-										</span>
-									</a>
-								</div>
+									</span>
+								</a>
 							</div>
 						</div>
 					</div>
