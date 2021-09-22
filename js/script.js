@@ -1,3 +1,5 @@
+var DEFAULT_GAME_FILENAME = 'js/game.zip';
+ 
  // Subtly hint at lack of WebAssembly support (if applicable)
 // if (typeof WebAssembly !== 'object') {
 
@@ -23,7 +25,6 @@
 // document.getElementById('canvas').addEventListener('click', function(e) {
 //   window.focus() 
 // });
-
 
       /* Copyright (C) 2018, 2019, 2020, 2021  Sylvain Beucler */
 

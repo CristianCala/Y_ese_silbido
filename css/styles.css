@@ -9,7 +9,7 @@
  /*Paleta de colores*/
 :root {
 	--dark-color: #262E31;
-	--main-color: #92AFBF;
+	--main-color: #606B6A;
 	--terciary-color: #BBF6FF; /*10*/
 }
 
@@ -177,14 +177,15 @@ canvas.emscripten {
   margin: auto;
   width: 70vw;
   height: 50vh;
+  position: relative;
 }
 
-#emscripten_logo {
+/*#emscripten_logo {
   display: inline-block;
   margin: 0;
-}
+}*/
 
-.spinner-pos {
+/*.spinner-pos {
   height: 30px;
   width: 30px;
   vertical-align: top;
@@ -194,18 +195,18 @@ canvas.emscripten {
 #statusbar_container {
   top: 0;
   width: 100%;
+  margin:  auto;
 }
 
 #statusbar {
   width: 50%;
   margin: auto;
   padding: 10px;
-  height: -10px;
-}
+}*/
 
 #ContextContainer {
   position: absolute;
-  left: 0rem;
+  left: 0;
   top: 0;
 }
 #ContextButton {
