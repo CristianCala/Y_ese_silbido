@@ -1,4 +1,4 @@
-var DEFAULT_GAME_FILENAME = 'js/game.zip';
+var DEFAULT_GAME_FILENAME = 'game.zip';
  
  // Subtly hint at lack of WebAssembly support (if applicable)
 if (typeof WebAssembly !== 'object') {
