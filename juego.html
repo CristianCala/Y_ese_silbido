@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>%%TITLE%%</title>
+    <title>¿Y ese Silbido?</title>
     <script>
       var DEFAULT_GAME_FILENAME = 'game.zip';
     </script>
@@ -208,7 +208,7 @@
           });
         }
         reader.readAsArrayBuffer(input.files[0])
-	input.type = ''; input.type = 'file'; // reset field
+  input.type = ''; input.type = 'file'; // reset field
       }
 
       function onSavegamesExport() {
@@ -402,9 +402,9 @@
         };
       };
     </script>
-    <script src="pythonhome-data.js"></script>
-    <script src="pyapp-data.js"></script>
-    <script >
+    <script type='text/javascript' src="pythonhome-data.js"></script>
+    <script type='text/javascript' src="pyapp-data.js"></script>
+    <script type='text/javascript'>
       function create_persistent() {
         // populate savegames
         try {
@@ -429,7 +429,7 @@
         Module["preRun"].push(create_persistent); // FS is not initialized yet, wait for it
       }
     </script>
-    <script async src="index.js"></script>
+    <script async type="text/javascript" src="index.js"></script>
   </body>
 </html>
 
