@@ -36,15 +36,14 @@ nav{
 header {
   background-color: var(--main-color);
   background: url(../img/header.png) no-repeat;
-
   font-family: 'CheapPotatoes' !important;
-
   background-position: center;
   background-size: cover;
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 950px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
 }
 
 section{
@@ -53,6 +52,7 @@ section{
 
 footer{
   background-color: var(--main-color);
+  clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
 }
 
 .icon:hover{
@@ -107,40 +107,6 @@ nav.hover-relleno ul li a:hover:after {
   height: 100%;
 }
 
-@keyframes bounceAlpha {
-  0% {opacity: 1; transform: translateY(0px) scale(1);}
-  25%{opacity: 0; transform:translateY(10px) scale(0.9);}
-  26%{opacity: 0; transform:translateY(-10px) scale(0.9);}
-  55% {opacity: 1; transform: translateY(0px) scale(1);}
-}
-
-.bounceAlpha {
-    animation-name: bounceAlpha;
-    animation-duration:1.4s;
-    animation-iteration-count:infinite;
-    animation-timing-function:linear;
-}
-
-.arrow.primera.bounceAlpha {
-    animation-name: bounceAlpha;
-    animation-duration:1.4s;
-    animation-delay:0.2s;
-    animation-iteration-count:infinite;
-    animation-timing-function:linear;
-}
-
-.round:hover .arrow{
-    animation-name: bounceAlpha;
-    animation-duration:1.4s;
-    animation-iteration-count:infinite;
-    animation-timing-function:linear;
-}
-.round:hover .arrow.primera{
-    animation-name: bounceAlpha;
-    animation-duration:1.4s;
-    animation-delay:0.2s;
-    animation-iteration-count:infinite;
-}
 
 .btn-floating{
   width: 3rem !important;
@@ -228,4 +194,8 @@ canvas.emscripten {
 #ContextMenu {
   background-color: rgb(40,40,40);
   padding: 5px;
+}
+
+.btn-cyan{
+  background-color: var(--terciary-color) !important;
 }
