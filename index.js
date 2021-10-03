@@ -92,7 +92,6 @@ Module["onRuntimeInitialized"] = function () {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.responseType = "arraybuffer";
-    xhr.timeout = 30000;
     xhr.onprogress = function (event) {
         var size = -1;
         if (event.total) size = event.total;
@@ -131,7 +130,7 @@ Module["onRuntimeInitialized"] = function () {
             Module.print("Extracting Story...\n");
             window.setTimeout(function () {
                 gameExtractAndRun();
-            }, 200);
+            }, 300);
         } else {
             console.log(xhr);
             console.log(event);
