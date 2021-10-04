@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-us">
-  <!-- Adapted for RenPyWeb from https://github.com/kripken/emscripten/blob/incoming/src/shell.html -->
+  <!-- Adapted for RenPyWeb from https://github.com/emscripten-core/emscripten/blob/master/src/shell.html -->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>¿Y ese Silbido??</title>
+    <title>¿Y ese Silbido?</title>
     <script>
       var DEFAULT_GAME_FILENAME = 'game.zip';
     </script>
@@ -127,7 +127,7 @@
     </style>
   </head>
   <body>
-
+    <div style="margin-top: 4rem;"></div>
     <div id="statusbar_container">
       <div id="statusbar">
         <div class="spinner" id='spinner'></div>
@@ -152,28 +152,15 @@
           // R.I.P.
       }
 
+      // Clear error when running without server
+      if (location.href.startsWith('file://')) {
+          alert("Error: your browser requires the game to be run from a local HTTP server (i.e. double-clicking on index.html won't work).");
+      }
+
       // Work-around iframe focus
       // https://github.com/emscripten-core/emscripten/pull/7631
       document.getElementById('canvas').addEventListener('mouseenter', function(e) { window.focus() });
       document.getElementById('canvas').addEventListener('click', function(e) { window.focus() });
-
-      // Work-around chromium autoplay policy
-      // https://github.com/emscripten-core/emscripten/issues/6511
-      function resumeAudio(e) {
-          if (typeof Module === 'undefined'
-              || typeof Module.SDL2 == 'undefined'
-              || typeof Module.SDL2.audioContext == 'undefined')
-              return;
-          if (Module.SDL2.audioContext.state == 'suspended') {
-              Module.SDL2.audioContext.resume();
-          }
-          if (Module.SDL2.audioContext.state == 'running') {
-              document.getElementById('canvas').removeEventListener('click', resumeAudio);
-              document.removeEventListener('keydown', resumeAudio);
-          }
-      }
-      document.getElementById('canvas').addEventListener('click', resumeAudio);
-      document.addEventListener('keydown', resumeAudio);
     </script>
 
     <div id="ContextContainer">
@@ -182,7 +169,7 @@
         <input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip" style=display:none></input>
         <a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import saves</a><br />
         <a href="javascript:onSavegamesExport();">Export saves</a><br />
-        <a href="javascript:FSDownload('/log.txt');">Ren'Py log</a><br />
+        <a href="javascript:FSDownload('/log.txt', 'text/plain');">Ren'Py log</a><br />
         <a href="https://renpy.beuc.net/" target="_blank">
           <span style="font-size: smaller">
             <span style="color: dimgrey">Powered by</span>
@@ -194,7 +181,7 @@
     </div>
 
     <script type='text/javascript'>
-      /* Copyright (C) 2018, 2019  Sylvain Beucler */
+      /* Copyright (C) 2018, 2019, 2020, 2021  Sylvain Beucler */
 
       /* Context menu */
       document.getElementById('ContextButton').addEventListener('click', function (e) {
@@ -227,7 +214,7 @@
       function onSavegamesExport() {
         ret = Module._emSavegamesExport();
         if (ret) {
-          FSDownload('savegames.zip');
+          FSDownload('savegames.zip', 'application/zip');
         }
       }
 
@@ -257,6 +244,8 @@
           presplash = FS.readFile('/web-presplash.png');
         } else if (FS.readdir('/').indexOf('web-presplash.jpg') >= 0) {
           presplash = FS.readFile('/web-presplash.jpg');
+        } else if (FS.readdir('/').indexOf('web-presplash.webp') >= 0) {
+          presplash = FS.readFile('/web-presplash.webp');
         } else if (FS.readdir('/').indexOf('web-presplash-default.jpg') >= 0) {
           presplash = FS.readFile('/web-presplash-default.jpg');
         }
@@ -287,20 +276,25 @@
       function presplashEnd() {
         document.getElementById('presplash').remove();
       }
-      function FSDownload(filename) {
+      function FSDownload(filename, mimetype) {
         console.log('download', filename);
-        a = document.createElement('a');
+        var a = document.createElement('a');
         a.download = filename.replace(/.*\//, '');
         try {
-          a.href = window.URL.createObjectURL(new Blob([FS.readFile(filename)]));
+          a.href = window.URL.createObjectURL(new Blob([FS.readFile(filename)],
+                                                       { type: mimetype || '' }));
         } catch(e) {
           Module.print("Error opening " + filename + "\n");
           return;
         }
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(a.href);
-        document.body.removeChild(a);
+        // delay clean-up to avoid iOS issue:
+        // The operation couldn’t be completed. (WebKitBlobResourse error 1.)
+        setTimeout(function() {
+            window.URL.revokeObjectURL(a.href);
+            document.body.removeChild(a);
+        }, 1000);
       }
     </script>
     <script type='text/javascript'>
@@ -394,7 +388,14 @@
         // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
         //Module.setStatus('Exception thrown, see JavaScript console');
         // Explicitly display meaningful errors such as "uncaught exception: out of memory":
-        Module.setStatus('Error: ' + event.split('\n')[0] + ' (see JavaScript console for details)');
+
+        var appleWarning = "";
+
+        if (/RangeError/.test(event)) {
+            appleWarning = "\n<p>This is a known issue in Safari and Webkit browsers. Please report this issue to Apple.";
+        }
+
+        Module.setStatus('Error: ' + event.split('\n')[0] + ' (see JavaScript console for details)' + appleWarning);
         spinnerElement.style.display = 'none';
         Module.setStatus = function(text) {
           if (text) Module.printErr('[post-exception status] ' + text);
@@ -410,7 +411,8 @@
           FS.mkdir('/home/web_user/.renpy');
           FS.mount(IDBFS, {}, '/home/web_user/.renpy');
         } catch(e) {
-          Module.print("Could not create ~/.renpy/\n");
+          console.log(e);
+          Module.print("Could not create ~/.renpy/ : " + e.message + "\n");
         }
         FS.syncfs(true, function(err) {
           if (err) {
@@ -427,156 +429,7 @@
         Module["preRun"].push(create_persistent); // FS is not initialized yet, wait for it
       }
     </script>
-    <script type="text/javascript" src="zee.js"></script>
-    <script>
-var ASSERTIONS = 0;
-// Copyright 2017 The Emscripten Authors.  All rights reserved.
-// Emscripten is available under two separate licenses, the MIT license and the
-// University of Illinois/NCSA Open Source License.  Both these licenses can be
-// found in the LICENSE file.
-
-// Prefix of data URIs emitted by SINGLE_FILE and related options.
-var dataURIPrefix = 'data:application/octet-stream;base64,';
-
-// Indicates whether filename is a base64 data URI.
-function isDataURI(filename) {
-  return String.prototype.startsWith ?
-      filename.startsWith(dataURIPrefix) :
-      filename.indexOf(dataURIPrefix) === 0;
-}
-
-
-
-// Copied from https://github.com/strophe/strophejs/blob/e06d027/src/polyfills.js#L149
-
-// This code was written by Tyler Akins and has been placed in the
-// public domain.  It would be nice if you left this header intact.
-// Base64 code from Tyler Akins -- http://rumkin.com
-
-/**
- * Decodes a base64 string.
- * @param {String} input The string to decode.
- */
-var decodeBase64 = typeof atob === 'function' ? atob : function (input) {
-  var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-  var output = '';
-  var chr1, chr2, chr3;
-  var enc1, enc2, enc3, enc4;
-  var i = 0;
-  // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-  input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
-  do {
-    enc1 = keyStr.indexOf(input.charAt(i++));
-    enc2 = keyStr.indexOf(input.charAt(i++));
-    enc3 = keyStr.indexOf(input.charAt(i++));
-    enc4 = keyStr.indexOf(input.charAt(i++));
-
-    chr1 = (enc1 << 2) | (enc2 >> 4);
-    chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-    chr3 = ((enc3 & 3) << 6) | enc4;
-
-    output = output + String.fromCharCode(chr1);
-
-    if (enc3 !== 64) {
-      output = output + String.fromCharCode(chr2);
-    }
-    if (enc4 !== 64) {
-      output = output + String.fromCharCode(chr3);
-    }
-  } while (i < input.length);
-  return output;
-};
-
-// Converts a string of base64 into a byte array.
-// Throws error on invalid input.
-function intArrayFromBase64(s) {
-  if (typeof ENVIRONMENT_IS_NODE === 'boolean' && ENVIRONMENT_IS_NODE) {
-    var buf;
-    try {
-      buf = Buffer.from(s, 'base64');
-    } catch (_) {
-      buf = new Buffer(s, 'base64');
-    }
-    return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
-  }
-
-  try {
-    var decoded = decodeBase64(s);
-    var bytes = new Uint8Array(decoded.length);
-    for (var i = 0 ; i < decoded.length ; ++i) {
-      bytes[i] = decoded.charCodeAt(i);
-    }
-    return bytes;
-  } catch (_) {
-    throw new Error('Converting base64 string to bytes failed.');
-  }
-}
-
-// If filename is a base64 data URI, parses and returns data (Buffer on node,
-// Uint8Array otherwise). If filename is not a base64 data URI, returns undefined.
-function tryParseAsDataURI(filename) {
-  if (!isDataURI(filename)) {
-    return;
-  }
-
-  return intArrayFromBase64(filename.slice(dataURIPrefix.length));
-}
-
-
-// Copyright 2017 The Emscripten Authors.  All rights reserved.
-// Emscripten is available under two separate licenses, the MIT license and the
-// University of Illinois/NCSA Open Source License.  Both these licenses can be
-// found in the LICENSE file.
-
-/** @type {function(string, boolean=, number=)} */
-function intArrayFromString(stringy, dontAddNull, length) {
-  var len = length > 0 ? length : lengthBytesUTF8(stringy)+1;
-  var u8array = new Array(len);
-  var numBytesWritten = stringToUTF8Array(stringy, u8array, 0, u8array.length);
-  if (dontAddNull) u8array.length = numBytesWritten;
-  return u8array;
-}
-
-function intArrayToString(array) {
-  var ret = [];
-  for (var i = 0; i < array.length; i++) {
-    var chr = array[i];
-    if (chr > 0xFF) {
-      if (ASSERTIONS) {
-        assert(false, 'Character code ' + chr + ' (' + String.fromCharCode(chr) + ')  at offset ' + i + ' not in 0x00-0xFF.');
-      }
-      chr &= 0xFF;
-    }
-    ret.push(String.fromCharCode(chr));
-  }
-  return ret.join('');
-}
-
-
-
-          var emterpretURL = 'index.em';
-          var emterpretXHR = new XMLHttpRequest();
-          emterpretXHR.open('GET', emterpretURL, true);
-          emterpretXHR.responseType = 'arraybuffer';
-          emterpretXHR.onload = function() {
-            if (emterpretXHR.status === 200 || emterpretXHR.status === 0) {
-              Module.emterpreterFile = emterpretXHR.response;
-            } else {
-              var emterpretURLBytes = tryParseAsDataURI(emterpretURL);
-              if (emterpretURLBytes) {
-                Module.emterpreterFile = emterpretURLBytes.buffer;
-              }
-            }
-
-          var script = document.createElement('script');
-          script.src = "index.js";
-          document.body.appendChild(script);
-
-          };
-          emterpretXHR.send(null);
-
-</script>
+    <script async type="text/javascript" src="index.js"></script>
   </body>
 </html>
 
