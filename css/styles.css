@@ -35,7 +35,7 @@ nav{
 
 header {
   background-color: var(--main-color);
-  background: url(../img/header.png) no-repeat;
+  background: url(../img/header.png) no-repeat fixed;
   font-family: 'CheapPotatoes' !important;
   background-position: center;
   background-size: cover;
@@ -52,7 +52,6 @@ section{
 
 footer{
   background-color: var(--main-color);
-  clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
 }
 
 .icon:hover{
@@ -119,83 +118,48 @@ nav.hover-relleno ul li a:hover:after {
 }
 
 .svg-juego-down{
-  bottom: -6rem;
+  top: -2.5rem;
   height: 15vh;
-}
-
-#juego{
-  /*transform: translateY(25deg);*/
-}
-
-
-/*Renpy styles*/
-
-.emscripten { 
-  margin: auto;
-  display: block;
-  font-family: 'Lato';
-}
-/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-canvas.emscripten {
-  border: 0px none;
-  background-color: #262626;
-  border-radius: 16px;
-  margin: auto;
-  width: 70vw;
-  height: 50vh;
-  position: relative;
-}
-
-/*#emscripten_logo {
-  display: inline-block;
-  margin: 0;
-}*/
-
-/*.spinner-pos {
-  height: 30px;
-  width: 30px;
-  vertical-align: top;
-  position: absolute;
-}
-
-#statusbar_container {
-  top: 0;
-  width: 100%;
-  margin:  auto;
-}
-
-#statusbar {
-  width: 50%;
-  margin: auto;
-  padding: 10px;
-}*/
-
-#ContextContainer {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-#ContextButton {
-  cursor: pointer;
-  user-select: none;
-  -moz-user-select: none;
-}
-#ContextButton:focus {
-  outline: none;
-}
-#ContextMenu a {
-  text-decoration: none;
-  color: lightgrey;
-}
-#ContextMenu a:hover {
-  text-decoration: nsone;
-  color: grey;
-}
-#ContextMenu {
-  background-color: rgb(40,40,40);
-  padding: 5px;
 }
 
 .btn-cyan{
   background-color: var(--terciary-color) !important;
+}
+
+.rosita{
+  border-radius: 16px;
+}
+
+.text-capitalize{
+  font-family: CheapPotatoesThin;
+  text-emphasis: uppercase;
+  font-size: 5vh;
+}
+
+p{
+    text-indent: 2rem;
+}
+
+.silbido-logo{
+  width: 38vw;
+  height: 24vw;
+}
+
+/*pantalla mac*/
+@media screen and (min-width: 2550px;){
+
+}
+
+@media (min-width: 1px) and (max-width: 860px){
+
+header{
+  background-color: var(--main-color) !important;
+  background-image: none !important; 
+}
+
+.silbido-logo{
+  width: 60vw;
+  height: 34vw;
+}
+
 }
