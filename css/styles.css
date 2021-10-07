@@ -33,7 +33,7 @@ nav{
 	background-color: var(--dark-color);
 }
 
-header {
+.bg-header {
   background-color: var(--main-color);
   background: url(../img/header.png) no-repeat fixed;
   font-family: 'CheapPotatoes' !important;
